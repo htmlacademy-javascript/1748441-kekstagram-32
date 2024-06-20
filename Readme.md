@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ольга Васильева](https://up.htmlacademy.ru/javascript/32/user/1748441).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Сигов](https://htmlacademy.ru/profile/crazer).
 
 ---
 
