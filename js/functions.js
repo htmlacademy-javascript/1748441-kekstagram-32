@@ -1,6 +1,6 @@
 // Функция для проверки длины строки
-function checkLength(str, max_length){
-  if(str.length <= max_length){
+function checkLength(str, maxLength){
+  if(str.length <= maxLength){
     return true;
   }
   return false;
@@ -8,7 +8,7 @@ function checkLength(str, max_length){
 
 // проверка на палиндром
 function isPalindrome(str){
-  let normalizeStr = str.replaceAll(' ', '').toLowerCase();
+  const normalizeStr = str.replaceAll(' ', '').toLowerCase();
   let reserved = '';
   for(let i = normalizeStr.length - 1; i >= 0; i--){
     reserved += normalizeStr[i];
@@ -20,11 +20,11 @@ function isPalindrome(str){
 }
 
 function getIntSlice(str){
-  let p_str = str.toString();
+  const pStr = str.toString();
   let result = '';
-  for(let i = 0; i <= p_str.length; i++){
-    if(!Number.isNaN(parseInt(p_str[i]))){
-      result += p_str[i];
+  for(let i = 0; i <= pStr.length; i++){
+    if(!Number.isNaN(parseInt(pStr[i], 10))){
+      result += pStr[i];
     }
   }
   if(result === ''){
