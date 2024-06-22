@@ -33,6 +33,9 @@ function getIntSlice(str){
   return result;
 }
 
+checkLength('проверяемая строка', 20);
+isPalindrome('Лёша на полке клопа нашёл ');
+getIntSlice(-1);
 /*
 // Тесты
 console.log(checkLength('проверяемая строка', 20)); // true
