@@ -10,9 +10,11 @@ function checkLength(str, maxLength){
 function isPalindrome(str){
   const normalizeStr = str.replaceAll(' ', '').toLowerCase();
   let reserved = '';
-  for(let i = normalizeStr.length - 1; i >= 0; i--){
+
+  for (let i = normalizeStr.length - 1; i >= 0; i--) {
     reserved += normalizeStr[i];
   }
+
   if(normalizeStr === reserved){
     return true;
   }
@@ -22,7 +24,8 @@ function isPalindrome(str){
 function getIntSlice(str){
   const pStr = str.toString();
   let result = '';
-  for(let i = 0; i <= pStr.length; i++){
+
+  for (let i = 0; i <= pStr.length; i++) {
     if(!Number.isNaN(parseInt(pStr[i], 10))){
       result += pStr[i];
     }
