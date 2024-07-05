@@ -1,4 +1,4 @@
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Купил себе новые тапки',
   'Застряли с бегемотами',
   'Концерт был огненным',
@@ -24,7 +24,7 @@ const NAMES = [
   'Мирослав'
 ];
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'В целом всё неплохо.',
@@ -36,12 +36,6 @@ const MESSAGE = [
   'В конце концов это просто непрофессионально.',
   'В конце концов это просто непрофессионально.Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.'
 ];
-
-const SIMILAR_POST_COUNT = 25; // всего кол-во постов для генерации
-
-const generatePostId = createIdGenerator(); // для генерации последовательных id для постов
-const generateCommentId = createIdGenerator(); // для генерации последовательных id для комментариев
-
 
 function createIdGenerator () {
   let lastGeneratedId = 0;
@@ -76,15 +70,20 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
+const SIMILAR_POST_COUNT = 25; // всего кол-во постов для генерации
+
+const generatePostId = createIdGenerator(); // для генерации последовательных id для постов
+const generateCommentId = createIdGenerator(); // для генерации последовательных id для комментариев
+const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
+
 function createComment(){
   return {
     id: generateCommentId(),
     avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: MESSAGE[getRandomInteger(0, MESSAGE.length - 1)],
+    message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
     name: NAMES[getRandomInteger(0, NAMES.length - 1)]
   };
 }
-const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
 
 const createPost = () => {
   const generateId = generatePostId();
@@ -92,7 +91,7 @@ const createPost = () => {
   return {
     id: generateId,
     url: `photos/${generatePhotoId()}.jpg`,
-    description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
+    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(15, 200),
     comments: Array.from({length: getRandomInteger(0, 30)}, createComment),
   };
@@ -100,3 +99,4 @@ const createPost = () => {
 
 
 const similarPosts = Array.from({length: SIMILAR_POST_COUNT}, createPost);
+console.log(similarPosts);

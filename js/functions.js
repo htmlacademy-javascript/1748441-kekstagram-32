@@ -33,7 +33,7 @@ function getIntSlice(str){
   if(result === ''){
     return NaN;
   }
-  return result;
+  return parseInt(result, 10);
 }
 
 checkLength('проверяемая строка', 20);
