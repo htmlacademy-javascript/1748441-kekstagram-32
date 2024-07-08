@@ -39,8 +39,40 @@ function getIntSlice(str){
 checkLength('проверяемая строка', 20);
 isPalindrome('Лёша на полке клопа нашёл ');
 getIntSlice(-1);
+
+// Делу — время
+function inInterval(start, end, meeting, duration){
+
+  const [startHour, startMinute] = start.split(':').map((part) => parseInt(part, 10));
+  const starTime = startHour * 60 + startMinute;
+
+  const [endHour, endMinute] = end.split(':').map((part) => parseInt(part, 10));
+  const endTime = endHour * 60 + endMinute;
+
+  const [meetingHour, meetingMinute] = meeting.split(':').map((part) => parseInt(part, 10));
+  const meetingTime = meetingHour * 60 + meetingMinute;
+
+  if ((meetingTime + duration <= endTime) && (starTime <= meetingTime)) {
+    return true;
+  }
+
+  return false;
+}
+
+inInterval('08:00', '17:30', '14:00', 90); // true
+inInterval('8:0', '10:0', '8:0', 120); // true
+inInterval('08:00', '14:30', '14:00', 90); // false
+inInterval('14:00', '17:30', '08:0', 90); // false
+inInterval('8:00', '17:30', '08:00', 900); // false
 /*
 // Тесты
+
+console.log(inInterval('08:00', '17:30', '14:00', 90)); // true
+console.log(inInterval('8:0', '10:0', '8:0', 120));     // true
+console.log(inInterval('08:00', '14:30', '14:00', 90)); // false
+console.log(inInterval('14:00', '17:30', '08:0', 90));  // false
+console.log(inInterval('8:00', '17:30', '08:00', 900)); // false
+
 console.log(checkLength('проверяемая строка', 20)); // true
 console.log(checkLength('проверяемая строка', 18)); // true
 console.log(checkLength('проверяемая строка', 10)); // false
