@@ -1,3 +1,2 @@
-import {similarPosts} from './generate-date.js';
-
-console.log(similarPosts);
+import {similarPosts} from './generate-data.js';
+import './render-posts.js';
