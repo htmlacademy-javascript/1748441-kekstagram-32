@@ -1,6 +1,6 @@
 import {similarPosts} from './generate-data.js';
 
-console.log(similarPosts);
+//console.log(similarPosts);
 
 const listPost = document.querySelector('.pictures');
 const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
