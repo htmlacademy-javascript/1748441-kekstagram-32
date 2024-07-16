@@ -44,7 +44,7 @@ getIntSlice(-1);
 function inInterval(start, end, meeting, duration){
 
   const [startHour, startMinute] = start.split(':').map((part) => parseInt(part, 10));
-  const starTime = startHour * 60 + startMinute;
+  const startTime = startHour * 60 + startMinute;
 
   const [endHour, endMinute] = end.split(':').map((part) => parseInt(part, 10));
   const endTime = endHour * 60 + endMinute;
@@ -52,7 +52,7 @@ function inInterval(start, end, meeting, duration){
   const [meetingHour, meetingMinute] = meeting.split(':').map((part) => parseInt(part, 10));
   const meetingTime = meetingHour * 60 + meetingMinute;
 
-  if ((meetingTime + duration <= endTime) && (starTime <= meetingTime)) {
+  if ((meetingTime + duration <= endTime) && (startTime <= meetingTime)) {
     return true;
   }
 
