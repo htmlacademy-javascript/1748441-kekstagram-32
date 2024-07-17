@@ -4,7 +4,6 @@ import {similarPosts} from './generate-data.js';
 
 const listPost = document.querySelector('.pictures');
 const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
 const postFragment = document.createDocumentFragment();
 
 similarPosts.forEach((itemPost) => {
