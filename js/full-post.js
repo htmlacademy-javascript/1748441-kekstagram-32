@@ -5,11 +5,14 @@ import {similarPosts} from './render-posts.js';
 const fullPostModal = document.querySelector('.big-picture');
 const closeModalPostModal = fullPostModal.querySelector('#picture-cancel');
 const listPost = document.querySelector('.pictures');
-const listComment = fullPostModal.querySelector('.social__comments');
+const listComments = fullPostModal.querySelector('.social__comments');
+
+const loadMoreComments = fullPostModal.querySelector('.social__comments-loader');
 
 //для отрисовки комментариев
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentFragment = document.createDocumentFragment();
+const SHOW_COMMENTS_COUNT = 5;
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -19,15 +22,22 @@ const onModalEscKeydown = (evt) => {
 };
 
 const renderCommentsPost = (comments) => {
-  comments.forEach((itemComment) => {
+
+  comments.forEach((itemComment, index) => {
     const commentElement = commentTemplate.cloneNode(true);
 
     commentElement.querySelector('.social__picture').src = itemComment.avatar;
     commentElement.querySelector('.social__picture').alt = itemComment.name;
     commentElement.querySelector('.social__text').textContent = itemComment.message;
+
+    if (index > SHOW_COMMENTS_COUNT - 1) {
+      // скрываем комментарии после SHOW_COMMENTS_COUNT-го
+      commentElement.classList.add('hidden');
+    }
+
     commentFragment.appendChild(commentElement);
   });
-  listComment.appendChild(commentFragment);
+  listComments.appendChild(commentFragment);
 };
 
 const renderFullPostInModal = (post) => {
@@ -35,9 +45,19 @@ const renderFullPostInModal = (post) => {
   fullPostModal.querySelector('.big-picture__image').src = post.url;
   fullPostModal.querySelector('.social__caption').textContent = post.description;
   fullPostModal.querySelector('.likes-count').textContent = post.likes;
-  fullPostModal.querySelector('.social__comment-shown-count').textContent = post.comments.length; // пока показываем сразу все комментариии
+  if(SHOW_COMMENTS_COUNT > post.comments.length){
+    fullPostModal.querySelector('.social__comment-shown-count').textContent = post.comments.length;
+  }else{
+    fullPostModal.querySelector('.social__comment-shown-count').textContent = SHOW_COMMENTS_COUNT;
+  }
   fullPostModal.querySelector('.social__comment-total-count').textContent = post.comments.length;
   renderCommentsPost(post.comments);
+
+  if(post.comments.length > SHOW_COMMENTS_COUNT) {
+    // показываем кнопку "Загрузить еще комментарии"
+    loadMoreComments.classList.remove('hidden');
+    loadMoreComments.addEventListener('click', showMoreComments);
+  }
 
   openFullPostModal();
 };
@@ -65,6 +85,27 @@ function openFullPostModal(){
 
 function closeFullPostModal(){
   fullPostModal.classList.add('hidden');
+  listComments.textContent = '';
   document.removeEventListener('keydown', onModalEscKeydown);
   closeModalPostModal.removeEventListener('click', closeFullPostModal);
+  loadMoreComments.removeEventListener('click', showMoreComments);
+}
+
+function showMoreComments(){
+  const list = listComments.querySelectorAll('.social__comment');
+  let countShowed = 0;
+  list.forEach((itemComment) => {
+    if (itemComment.classList.contains('hidden') && countShowed < SHOW_COMMENTS_COUNT) {
+      itemComment.classList.remove('hidden');
+      countShowed++;
+    }
+  });
+  const currentShowed = parseInt(fullPostModal.querySelector('.social__comment-shown-count').textContent,10);
+  const allComments = list.length;
+
+  fullPostModal.querySelector('.social__comment-shown-count').textContent = currentShowed + countShowed;
+
+  if(currentShowed + countShowed === allComments){
+    loadMoreComments.classList.add('hidden');
+  }
 }
