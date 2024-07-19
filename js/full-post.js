@@ -67,23 +67,25 @@ listPost.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
 
     const idPost = parseInt(evt.target.closest('.picture').getAttribute('data-id'), 10);
-    const result = similarPosts.filter((post) => post.id === idPost);
+    const result = similarPosts.find((post) => post.id === idPost);
 
     if (result) {
       evt.preventDefault();
-      renderFullPostInModal(result[0]);
+      renderFullPostInModal(result);
     }
 
   }
 });
 
 function openFullPostModal(){
+  document.body.classList.add('modal-open');
   fullPostModal.classList.remove('hidden');
   document.addEventListener('keydown', onModalEscKeydown);
   closeModalPostModal.addEventListener('click', closeFullPostModal);
 }
 
 function closeFullPostModal(){
+  document.body.classList.remove('modal-open');
   fullPostModal.classList.add('hidden');
   listComments.textContent = '';
   document.removeEventListener('keydown', onModalEscKeydown);
