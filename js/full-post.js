@@ -62,12 +62,9 @@ const renderFullPostInModal = (post) => {
   fullPostModal.querySelector('.big-picture__image').src = post.url;
   fullPostModal.querySelector('.social__caption').textContent = post.description;
   fullPostModal.querySelector('.likes-count').textContent = post.likes;
-  if(SHOW_COMMENTS_COUNT > post.comments.length){
-    fullPostModal.querySelector('.social__comment-shown-count').textContent = post.comments.length;
-  }else{
-    fullPostModal.querySelector('.social__comment-shown-count').textContent = SHOW_COMMENTS_COUNT;
-  }
+  fullPostModal.querySelector('.social__comment-shown-count').textContent = Math.min(SHOW_COMMENTS_COUNT, post.comments.length);
   fullPostModal.querySelector('.social__comment-total-count').textContent = post.comments.length;
+
   renderCommentsPost(post.comments);
 
   if(post.comments.length > SHOW_COMMENTS_COUNT) {
@@ -104,7 +101,7 @@ function showMoreComments(){
   if(list.length - countShowedComments >= SHOW_COMMENTS_COUNT){
     needAdd = countShowedComments + SHOW_COMMENTS_COUNT;
   }else{
-    needAdd = countShowedComments + list.length - countShowedComments;
+    needAdd = list.length;
   }
 
   for (let i = countShowedComments; i < needAdd; i++) {
