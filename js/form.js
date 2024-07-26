@@ -1,4 +1,5 @@
 import {isEscapeKey} from './helpers.js';
+import './change-size-image.js';
 //import {pristine} from './validation-form.js';
 
 const imageLoadButton = document.querySelector('#upload-file');
@@ -20,12 +21,12 @@ function openLoadModal(){
   imageLoadModal.classList.remove('hidden');
   closeLoadModalButton.addEventListener('click', closeLoadModal);
   document.addEventListener('keydown', onModalEscKeydown);
+
+  // события на кнопки изменения размера
 }
 
 function closeLoadModal(){
-  imageLoadButton.value = ''; // input проверяет если изображение было загружено тоже то change не произойдет (поэтому обнулим)
-  loadForm.querySelector('.text__hashtags').value = '';
-  loadForm.querySelector('.text__description').value = '';
+  loadForm.reset();
   document.body.classList.remove('modal-open');
   imageLoadModal.classList.add('hidden');
   document.removeEventListener('keydown', onModalEscKeydown);
@@ -45,5 +46,3 @@ function onPreviewImageLoadModal (evt) {
 }
 
 imageLoadButton.addEventListener('change', onPreviewImageLoadModal);
-
-export {loadForm};
