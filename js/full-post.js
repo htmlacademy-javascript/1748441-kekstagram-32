@@ -1,6 +1,6 @@
 import {isEscapeKey} from './helpers.js';
 //import {similarPosts} from './render-posts.js';
-import { getData } from './api.js';
+//import {dataPost} from './get-data.js';
 
 //const itemPost = document.querySelector('.picture');
 const fullPostModal = document.querySelector('.big-picture');
@@ -15,6 +15,12 @@ const commentTemplate = document.querySelector('#comment').content.querySelector
 const commentFragment = document.createDocumentFragment();
 const SHOW_COMMENTS_COUNT = 5;
 let countShowedComments = SHOW_COMMENTS_COUNT; // кол-во показанных комментариев
+
+let picturesData = [];
+const setPicturesData = (data) => {
+  //console.log('setPicturesData');
+  picturesData = data;
+};
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -83,8 +89,9 @@ const renderFullPostInModal = (post) => {
 listPost.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
 
+    //console.log(picturesData);
     const idPost = parseInt(evt.target.closest('.picture').getAttribute('data-id'), 10);
-    const result = similarPosts.find((post) => post.id === idPost);
+    const result = picturesData.find((post) => post.id === idPost);
 
     if (result) {
       evt.preventDefault();
@@ -116,3 +123,5 @@ function showMoreComments(){
     loadMoreComments.classList.add('hidden');
   }
 }
+
+export {setPicturesData};
