@@ -1,5 +1,6 @@
 import {isEscapeKey} from './helpers.js';
-import {similarPosts} from './render-posts.js';
+//import {similarPosts} from './render-posts.js';
+import { getData } from './api.js';
 
 //const itemPost = document.querySelector('.picture');
 const fullPostModal = document.querySelector('.big-picture');

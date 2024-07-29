@@ -9,14 +9,6 @@ const pristine = new Pristine(loadForm,{
 });
 
 
-loadForm.addEventListener('submit', (evt) => {
-  //evt.preventDefault();
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
-
 function checkValidateHashtag(value){
 
   if (value === ''){
