@@ -8,7 +8,7 @@ const createLoader = (onSuccess, onError) => () => fetch(
   }
 )
   .then((response) => {
-    console.log(response.status);
+    //console.log(response.status);
     if(response.ok){
       return response.json();
     }
