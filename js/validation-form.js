@@ -1,4 +1,6 @@
-import {loadForm} from './form.js';
+import './form.js';
+
+const loadForm = document.querySelector('#upload-select-image');
 
 const pristine = new Pristine(loadForm,{
   classTo: 'img-upload__field-wrapper',
