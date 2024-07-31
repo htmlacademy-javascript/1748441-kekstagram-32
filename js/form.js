@@ -1,6 +1,8 @@
 import {isEscapeKey} from './helpers.js';
 import {resizeLoadImage} from './change-size-image.js';
 import {changeEffect} from './image-effet.js';
+import {pristine} from './validation-form.js';
+import {sendData} from './api.js';
 
 const imageLoadButton = document.querySelector('#upload-file');
 const imageLoadModal = document.querySelector('.img-upload__overlay');
@@ -68,5 +70,50 @@ function onPreviewImageLoadModal (evt) {
 
   openLoadModal();
 }
+
+function onSubmitSuccess(){
+  const successTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+  document.querySelector('body').appendChild(successTemplate);
+
+  successTemplate.querySelector('.success__button').addEventListener('click', () => {
+    successTemplate.remove();
+  });
+
+  setTimeout(() => successTemplate.remove(),5000);
+}
+
+function onSubmitError(){
+  const errorTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  document.querySelector('body').appendChild(errorTemplate);
+
+  errorTemplate.querySelector('.error__button').addEventListener('click', () => {
+    errorTemplate.remove();
+  });
+
+  setTimeout(() => errorTemplate.remove(),5000);
+}
+
+
+loadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+
+  if (isValid) {
+    evt.preventDefault();
+    sendData(new FormData(evt.target))
+      .then(
+        () => {
+          closeLoadModal();
+          onSubmitSuccess();
+        }
+      )
+      .catch(
+        () => {
+          onSubmitError();
+        }
+      )
+      .finally();
+  }
+});
 
 imageLoadButton.addEventListener('change', onPreviewImageLoadModal);

@@ -1,3 +1,7 @@
+import './get-data.js';
 import './full-post.js';
+
 import './form.js';
-import './validation-form.js';
+
+// console.log('Массив всех постов');
+// console.log(dataPost);
