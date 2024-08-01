@@ -1,6 +1,8 @@
 import { renderPosts } from './render-posts.js';
 import { getData } from './api.js';
 import {setPicturesData} from './full-post.js';
+import {initFilter} from './filter.js';
+import { debounce } from './helpers.js';
 
 function onLoadError(){
   const errorTemplate = document.querySelector('#data-error').content.querySelector('.data-error').cloneNode(true);
@@ -11,14 +13,11 @@ function onLoadError(){
 getData()
   .then((data) => {
     renderPosts(data);
-    //console.log('ttt',dataPost);
     setPicturesData(data);
+    const debounceRenderPosts = debounce(renderPosts);
+    initFilter(data,debounceRenderPosts);
   }).catch(
     () => {
       onLoadError();
     }
   );
-
-//console.log('data in get-data',picturesData);
-
-//export {dataPost};
