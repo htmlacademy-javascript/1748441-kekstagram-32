@@ -100,6 +100,7 @@ loadForm.addEventListener('submit', (evt) => {
 
   if (isValid) {
     evt.preventDefault();
+    loadForm.querySelector('.img-upload__submit').disabled = true;
     sendData(new FormData(evt.target))
       .then(
         () => {
@@ -112,7 +113,9 @@ loadForm.addEventListener('submit', (evt) => {
           onSubmitError();
         }
       )
-      .finally();
+      .finally(() => {
+        loadForm.querySelector('.img-upload__submit').disabled = false;
+      });
   }
 });
 
