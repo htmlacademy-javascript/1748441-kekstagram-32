@@ -33,7 +33,7 @@ const setOnFilterClick = (callback) => {
     }
 
     const clickedButton = evt.target;
-    if(clickedButton.id === currentFilter){
+    if(clickedButton.id === currentFilter && currentFilter !== 'filter-random'){
       return;
     }
 
