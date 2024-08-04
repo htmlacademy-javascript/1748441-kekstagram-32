@@ -62,7 +62,7 @@ function closeLoadModal(){
 function onPreviewImageLoadModal (evt) {
   evt.preventDefault();
 
-  const imageUrl = URL.createObjectURL(imageLoadButton.files[0]);
+  const imageUrl = URL.createObjectURL(imageLoadButton.files[0]); // превью загруженой фотографии
   imageLoadPreview.src = imageUrl;
   effectsImage.forEach((itemEffect) => {
     itemEffect.style.backgroundImage = `url(${imageUrl})`;
