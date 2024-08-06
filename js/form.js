@@ -20,8 +20,10 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeLoadModal();
+    if(!loadForm.querySelector('.text__description:focus') && !loadForm.querySelector('.text__hashtags:focus') && !document.querySelector('section.error')){
+      evt.preventDefault();
+      closeLoadModal();
+    }
   }
 };
 
@@ -49,12 +51,12 @@ function openLoadModal(){
 }
 
 function closeLoadModal(){
+  imageLoadModal.classList.add('hidden');
   loadForm.reset();
   document.body.classList.remove('modal-open');
-  imageLoadModal.classList.add('hidden');
   document.removeEventListener('keydown', onModalEscKeydown);
   closeLoadModalButton.removeEventListener('click', closeLoadModal);
-
+  pristine.reset();
   // события на кнопки изменения размера
   minusSizeButton.removeEventListener('click', resizeLoadImage);
   plusSizeButton.removeEventListener('click', resizeLoadImage);
@@ -86,6 +88,18 @@ function onSubmitSuccess(){
     successTemplate.remove();
   });
 
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      successTemplate.remove();
+    }
+  });
+
+  successTemplate.addEventListener('click', (evt) => {
+    if (!evt.target.closest('.success__inner')) {
+      successTemplate.remove();
+    }
+  });
+
   setTimeout(() => successTemplate.remove(),5000);
 }
 
@@ -95,6 +109,18 @@ function onSubmitError(){
 
   errorTemplate.querySelector('.error__button').addEventListener('click', () => {
     errorTemplate.remove();
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      errorTemplate.remove();
+    }
+  });
+
+  errorTemplate.addEventListener('click', (evt) => {
+    if (!evt.target.closest('.error__inner')) {
+      errorTemplate.remove();
+    }
   });
 
   setTimeout(() => errorTemplate.remove(),5000);
@@ -107,12 +133,13 @@ loadForm.addEventListener('submit', (evt) => {
 
   if (isValid) {
     evt.preventDefault();
+    pristine.reset();
     loadForm.querySelector('.img-upload__submit').disabled = true;
     sendData(new FormData(evt.target))
       .then(
         () => {
-          closeLoadModal();
           onSubmitSuccess();
+          closeLoadModal();
         }
       )
       .catch(

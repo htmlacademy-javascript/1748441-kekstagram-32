@@ -6,7 +6,7 @@ const filter = {
 };
 
 const filterElement = document.querySelector('.img-filters');
-const postContainer = document.querySelector('.pictures');
+//const postContainer = document.querySelector('.pictures');
 let currentFilter = filter.DEFAULT;
 let post = [];
 
@@ -33,18 +33,14 @@ const setOnFilterClick = (callback) => {
     }
 
     const clickedButton = evt.target;
+    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+    clickedButton.classList.add('img-filters__button--active');
+
     if(clickedButton.id === currentFilter && currentFilter !== 'filter-random'){
       return;
     }
 
-    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    clickedButton.classList.add('img-filters__button--active');
     currentFilter = clickedButton.id;
-
-    while (document.querySelector('.picture')) {
-      postContainer.removeChild(document.querySelector('.picture'));
-    }
-
     callback(getFilteredPictures());
   });
 };

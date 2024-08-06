@@ -1,7 +1,7 @@
 const loadForm = document.querySelector('#upload-select-image');
 
 const inputSizeImage = loadForm.querySelector('.scale__control--value');
-const imageLoadPreview = loadForm.querySelector('.img-upload__preview');
+const imageLoadPreview = loadForm.querySelector('.img-upload__preview img');
 
 function resizeLoadImage(element){
 
