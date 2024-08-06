@@ -16,7 +16,7 @@ function checkValidateHashtag(value){
   }
 
   const hashtagReg = /^#[a-zа-яё0-9]{1,19}$/i;
-  const array = value.trim().toLowerCase().split(' ');
+  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
 
   for (let i = 0; i < array.length; i++) {
     if (!hashtagReg.test(array[i])) {
@@ -38,14 +38,13 @@ function checkValidateHashtag(value){
 function checkCountHashtag(value){
   // максимум 5 хэштегов
   // нормализуем строку и преобразуем в массив по разделителю пробел
-  const array = value.trim().toLowerCase().split(' ');
-
+  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
   return array.length < 6;
 }
 
 function checkUniqueHashtag(value){
   // нормализуем строку и преобразуем в массив по разделителю пробел
-  const array = value.trim().toLowerCase().split(' ');
+  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
   const set = new Set(array);
 
   return set.size === array.length;

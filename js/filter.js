@@ -33,12 +33,13 @@ const setOnFilterClick = (callback) => {
     }
 
     const clickedButton = evt.target;
-    if(clickedButton.id === currentFilter && currentFilter !== 'filter-random'){
+    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+    clickedButton.classList.add('img-filters__button--active');
+    if(clickedButton.id === currentFilter){
       return;
     }
 
-    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    clickedButton.classList.add('img-filters__button--active');
+
     currentFilter = clickedButton.id;
 
     while (document.querySelector('.picture')) {
