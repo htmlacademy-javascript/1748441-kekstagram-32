@@ -3,6 +3,10 @@ const renderPosts = (arrayPosts) => {
   const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const postFragment = document.createDocumentFragment();
 
+  while (document.querySelector('.picture')) {
+    listPost.removeChild(document.querySelector('.picture'));
+  }
+
   arrayPosts.forEach((itemPost) => {
     const postElement = postTemplate.cloneNode(true);
 
