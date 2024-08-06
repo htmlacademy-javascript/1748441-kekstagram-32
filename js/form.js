@@ -16,6 +16,8 @@ const plusSizeButton = loadForm.querySelector('.scale__control--bigger');
 
 const imageEffectsList = loadForm.querySelector('.effects__list');
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -62,13 +64,18 @@ function closeLoadModal(){
 function onPreviewImageLoadModal (evt) {
   evt.preventDefault();
 
-  const imageUrl = URL.createObjectURL(imageLoadButton.files[0]); // превью загруженой фотографии
-  imageLoadPreview.src = imageUrl;
-  effectsImage.forEach((itemEffect) => {
-    itemEffect.style.backgroundImage = `url(${imageUrl})`;
-  });
+  const file = imageLoadButton.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
-  openLoadModal();
+  if (matches) {
+    const imageUrl = URL.createObjectURL(file); // превью загруженой фотографии
+    imageLoadPreview.src = imageUrl;
+    effectsImage.forEach((itemEffect) => {
+      itemEffect.style.backgroundImage = `url(${imageUrl})`;
+    });
+    openLoadModal();
+  }
 }
 
 function onSubmitSuccess(){
