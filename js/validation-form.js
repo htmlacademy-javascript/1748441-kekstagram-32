@@ -24,14 +24,6 @@ function checkValidateHashtag(value){
     }
   }
 
-  // через forEach почему то не работает
-  // array.forEach((item) => {
-  //   if (!hashtagReg.test(item)) {
-  //     console.log('невалидный');
-  //     return false;
-  //   }
-  // });
-
   return true;
 }
 

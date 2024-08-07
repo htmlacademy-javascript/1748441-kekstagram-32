@@ -15,7 +15,6 @@ getData()
     renderPosts(data);
     setPicturesData(data);
     const debounceRenderPosts = debounce(renderPosts);
-    //console.log(debounceRenderPosts);
     initFilter(data,debounceRenderPosts);
   }).catch(
     () => {

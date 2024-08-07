@@ -6,7 +6,6 @@ const filter = {
 };
 
 const filterElement = document.querySelector('.img-filters');
-//const postContainer = document.querySelector('.pictures');
 let currentFilter = filter.DEFAULT;
 let post = [];
 

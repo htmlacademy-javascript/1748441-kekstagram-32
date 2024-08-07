@@ -64,31 +64,3 @@ inInterval('8:0', '10:0', '8:0', 120); // true
 inInterval('08:00', '14:30', '14:00', 90); // false
 inInterval('14:00', '17:30', '08:0', 90); // false
 inInterval('8:00', '17:30', '08:00', 900); // false
-/*
-// Тесты
-
-console.log(inInterval('08:00', '17:30', '14:00', 90)); // true
-console.log(inInterval('8:0', '10:0', '8:0', 120));     // true
-console.log(inInterval('08:00', '14:30', '14:00', 90)); // false
-console.log(inInterval('14:00', '17:30', '08:0', 90));  // false
-console.log(inInterval('8:00', '17:30', '08:00', 900)); // false
-
-console.log(checkLength('проверяемая строка', 20)); // true
-console.log(checkLength('проверяемая строка', 18)); // true
-console.log(checkLength('проверяемая строка', 10)); // false
-
-console.log(isPalindrome('довОд'));
-console.log(isPalindrome('Лёша на полке клопа нашёл '));
-console.log(isPalindrome('кекс'));
-
-
-console.log(getIntSlice('2023 год'));            // 2023
-console.log(getIntSlice('ECMAScript 2022'));     // 2022
-console.log(getIntSlice('1 кефир, 0.5 батона')); // 105
-console.log(getIntSlice('агент 007'));           // 7
-console.log(getIntSlice('а я томат'));           // NaN
-
-console.log(getIntSlice(2023)); // 2023
-console.log(getIntSlice(-1));   // 1
-console.log(getIntSlice(1.5));  // 15
-*/
