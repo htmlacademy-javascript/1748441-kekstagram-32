@@ -1,8 +1,5 @@
 import {isEscapeKey} from './helpers.js';
-//import {similarPosts} from './render-posts.js';
-//import {dataPost} from './get-data.js';
 
-//const itemPost = document.querySelector('.picture');
 const fullPostModal = document.querySelector('.big-picture');
 const closeModalPostModal = fullPostModal.querySelector('#picture-cancel');
 const listPost = document.querySelector('.pictures');
@@ -18,7 +15,6 @@ let countShowedComments = SHOW_COMMENTS_COUNT; // кол-во показанны
 
 let picturesData = [];
 const setPicturesData = (data) => {
-  //console.log('setPicturesData');
   picturesData = data;
 };
 
@@ -89,7 +85,6 @@ const renderFullPostInModal = (post) => {
 listPost.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
 
-    //console.log(picturesData);
     const idPost = parseInt(evt.target.closest('.picture').getAttribute('data-id'), 10);
     const result = picturesData.find((post) => post.id === idPost);
 

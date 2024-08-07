@@ -6,7 +6,6 @@ const filter = {
 };
 
 const filterElement = document.querySelector('.img-filters');
-const postContainer = document.querySelector('.pictures');
 let currentFilter = filter.DEFAULT;
 let post = [];
 
@@ -28,24 +27,20 @@ const getFilteredPictures = () => {
 
 const setOnFilterClick = (callback) => {
   filterElement.addEventListener('click', (evt) => {
-    if(!evt.target.classList.contains('img-filters__button')){
-      return;
+
+    if(evt.target.closest('.img-filters__button')){
+      const clickedButton = evt.target;
+      filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+      clickedButton.classList.add('img-filters__button--active');
+
+      if(clickedButton.id === currentFilter && currentFilter !== 'filter-random'){
+        return;
+      }
+
+      currentFilter = clickedButton.id;
+      callback(getFilteredPictures());
+
     }
-
-    const clickedButton = evt.target;
-    if(clickedButton.id === currentFilter && currentFilter !== 'filter-random'){
-      return;
-    }
-
-    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    clickedButton.classList.add('img-filters__button--active');
-    currentFilter = clickedButton.id;
-
-    while (document.querySelector('.picture')) {
-      postContainer.removeChild(document.querySelector('.picture'));
-    }
-
-    callback(getFilteredPictures());
   });
 };
 
