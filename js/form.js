@@ -4,23 +4,25 @@ import {changeEffect} from './image-effet.js';
 import {pristine} from './validation-form.js';
 import {sendData} from './api.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const imageLoadButton = document.querySelector('#upload-file');
 const imageLoadModal = document.querySelector('.img-upload__overlay');
-const loadForm = document.querySelector('#upload-select-image');
-const imageLoadPreview = loadForm.querySelector('.img-upload__preview img');
-const effectsImage = loadForm.querySelectorAll('.effects__item .effects__preview');
+const userForm = document.querySelector('#upload-select-image');
+const imageLoadPreview = userForm.querySelector('.img-upload__preview img');
+const effectsImage = userForm.querySelectorAll('.effects__item .effects__preview');
 const closeLoadModalButton = imageLoadModal.querySelector('.img-upload__cancel');
 
-const minusSizeButton = loadForm.querySelector('.scale__control--smaller');
-const plusSizeButton = loadForm.querySelector('.scale__control--bigger');
+const effectSliderBlock = userForm.querySelector('.img-upload__effect-level');
 
-const imageEffectsList = loadForm.querySelector('.effects__list');
+const minusSizeButton = userForm.querySelector('.scale__control--smaller');
+const plusSizeButton = userForm.querySelector('.scale__control--bigger');
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const imageEffectsList = userForm.querySelector('.effects__list');
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    if(!loadForm.querySelector('.text__description:focus') && !loadForm.querySelector('.text__hashtags:focus') && !document.querySelector('section.error')){
+    if(!userForm.querySelector('.text__description:focus') && !userForm.querySelector('.text__hashtags:focus') && !document.querySelector('section.error')){
       evt.preventDefault();
       closeLoadModal();
     }
@@ -32,6 +34,10 @@ function openLoadModal(){
   imageLoadModal.classList.remove('hidden');
   closeLoadModalButton.addEventListener('click', closeLoadModal);
   document.addEventListener('keydown', onModalEscKeydown);
+
+  effectSliderBlock.classList.add('hidden');
+  imageLoadPreview.style.transform = 'scale(1)';
+  imageLoadPreview.style.removeProperty('filter');
 
   // события на кнопки изменения размера
   minusSizeButton.addEventListener('click', (evt) => {
@@ -52,7 +58,7 @@ function openLoadModal(){
 
 function closeLoadModal(){
   imageLoadModal.classList.add('hidden');
-  loadForm.reset();
+  userForm.reset();
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscKeydown);
   closeLoadModalButton.removeEventListener('click', closeLoadModal);
@@ -127,14 +133,14 @@ function onSubmitError(){
 }
 
 
-loadForm.addEventListener('submit', (evt) => {
+userForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
 
   if (isValid) {
     evt.preventDefault();
     pristine.reset();
-    loadForm.querySelector('.img-upload__submit').disabled = true;
+    userForm.querySelector('.img-upload__submit').disabled = true;
     sendData(new FormData(evt.target))
       .then(
         () => {
@@ -148,7 +154,7 @@ loadForm.addEventListener('submit', (evt) => {
         }
       )
       .finally(() => {
-        loadForm.querySelector('.img-upload__submit').disabled = false;
+        userForm.querySelector('.img-upload__submit').disabled = false;
       });
   }
 });
