@@ -61,11 +61,11 @@ const EFFECTS = {
   }
 };
 
-const loadForm = document.querySelector('#upload-select-image');
-const effectSliderBlock = loadForm.querySelector('.img-upload__effect-level');
-const effectSliderElement = loadForm.querySelector('.effect-level__slider');
-const imageLoadPreview = loadForm.querySelector('.img-upload__preview img');
-const inputEffectImage = loadForm.querySelector('.effect-level__value');
+const userForm = document.querySelector('#upload-select-image');
+const effectSliderBlock = userForm.querySelector('.img-upload__effect-level');
+const effectSliderElement = userForm.querySelector('.effect-level__slider');
+const imageLoadPreview = userForm.querySelector('.img-upload__preview img');
+const inputEffectImage = userForm.querySelector('.effect-level__value');
 
 // инициализируем слайдер, затем просто обновляем ему опции
 const effectSlider = noUiSlider.create(effectSliderElement, {
@@ -107,7 +107,7 @@ function changeEffectSlider(){
   const currentSliderValue = effectSlider.get();
   inputEffectImage.value = currentSliderValue;
 
-  const selectedEffect = loadForm.querySelector('input[name="effect"]:checked').getAttribute('id');
+  const selectedEffect = userForm.querySelector('input[name="effect"]:checked').getAttribute('id');
 
   if (selectedEffect !== 'effect-none') {
     imageLoadPreview.style.filter = `${EFFECTS[selectedEffect].filter}(${currentSliderValue}${EFFECTS[selectedEffect].unit})`;

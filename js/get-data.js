@@ -9,7 +9,6 @@ function onLoadError(){
   document.querySelector('body').appendChild(errorTemplate);
 }
 
-
 getData()
   .then((data) => {
     renderPosts(data);

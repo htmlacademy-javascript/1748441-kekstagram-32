@@ -1,8 +1,8 @@
 import './form.js';
 
-const loadForm = document.querySelector('#upload-select-image');
+const userForm = document.querySelector('#upload-select-image');
 
-const pristine = new Pristine(loadForm,{
+const pristine = new Pristine(userForm,{
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper'
@@ -43,14 +43,14 @@ function checkUniqueHashtag(value){
 
 }
 
-function lengthComment(value){
+function checkLengthComment(value){
   return value.length < 140;
 }
 
-pristine.addValidator(loadForm.querySelector('.text__hashtags'), checkValidateHashtag, 'введён невалидный хэштег');
-pristine.addValidator(loadForm.querySelector('.text__hashtags'), checkCountHashtag, 'превышено количество хэштегов');
-pristine.addValidator(loadForm.querySelector('.text__hashtags'), checkUniqueHashtag, 'хэштеги повторяются');
+pristine.addValidator(userForm.querySelector('.text__hashtags'), checkValidateHashtag, 'введён невалидный хэштег');
+pristine.addValidator(userForm.querySelector('.text__hashtags'), checkCountHashtag, 'превышено количество хэштегов');
+pristine.addValidator(userForm.querySelector('.text__hashtags'), checkUniqueHashtag, 'хэштеги повторяются');
 
-pristine.addValidator(loadForm.querySelector('.text__description'), lengthComment, 'длина комментария больше 140 символов');
+pristine.addValidator(userForm.querySelector('.text__description'), checkLengthComment, 'длина комментария больше 140 символов');
 
 export {pristine};

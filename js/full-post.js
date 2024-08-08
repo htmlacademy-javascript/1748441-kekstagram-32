@@ -1,19 +1,20 @@
 import {isEscapeKey} from './helpers.js';
 
+const SHOW_COMMENTS_COUNT = 5;
+
 const fullPostModal = document.querySelector('.big-picture');
 const closeModalPostModal = fullPostModal.querySelector('#picture-cancel');
 const listPost = document.querySelector('.pictures');
 const listComments = fullPostModal.querySelector('.social__comments');
-
-const loadMoreComments = fullPostModal.querySelector('.social__comments-loader');
+const buttonMoreComments = fullPostModal.querySelector('.social__comments-loader');
 
 //для отрисовки комментариев
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentFragment = document.createDocumentFragment();
-const SHOW_COMMENTS_COUNT = 5;
-let countShowedComments = SHOW_COMMENTS_COUNT; // кол-во показанных комментариев
 
+let countShowedComments = SHOW_COMMENTS_COUNT; // кол-во показанных комментариев
 let picturesData = [];
+
 const setPicturesData = (data) => {
   picturesData = data;
 };
@@ -38,7 +39,7 @@ function closeFullPostModal(){
   listComments.textContent = '';
   document.removeEventListener('keydown', onModalEscKeydown);
   closeModalPostModal.removeEventListener('click', closeFullPostModal);
-  loadMoreComments.removeEventListener('click', showMoreComments);
+  buttonMoreComments.removeEventListener('click', showMoreComments);
 }
 
 const renderCommentsPost = (comments) => {
@@ -72,10 +73,10 @@ const renderFullPostInModal = (post) => {
 
   if(post.comments.length > SHOW_COMMENTS_COUNT) {
     // показываем кнопку "Загрузить еще комментарии"
-    loadMoreComments.classList.remove('hidden');
-    loadMoreComments.addEventListener('click', showMoreComments);
+    buttonMoreComments.classList.remove('hidden');
+    buttonMoreComments.addEventListener('click', showMoreComments);
   }else{
-    loadMoreComments.classList.add('hidden');
+    buttonMoreComments.classList.add('hidden');
   }
   countShowedComments = SHOW_COMMENTS_COUNT; // обновляем счетчик показанных комментариев для нового поста
   openFullPostModal();
@@ -115,7 +116,7 @@ function showMoreComments(){
   fullPostModal.querySelector('.social__comment-shown-count').textContent = countShowedComments;
 
   if(countShowedComments === list.length){
-    loadMoreComments.classList.add('hidden');
+    buttonMoreComments.classList.add('hidden');
   }
 }
 
