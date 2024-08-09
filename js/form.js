@@ -24,7 +24,7 @@ const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     if(!userForm.querySelector('.text__description:focus') && !userForm.querySelector('.text__hashtags:focus') && !document.querySelector('section.error')){
       evt.preventDefault();
-      closeLoadModal();
+      onUserFormModalClick();
     }
   }
 };
@@ -32,7 +32,7 @@ const onModalEscKeydown = (evt) => {
 function openLoadModal(){
   document.body.classList.add('modal-open');
   imageLoadModal.classList.remove('hidden');
-  closeLoadModalButton.addEventListener('click', closeLoadModal);
+  closeLoadModalButton.addEventListener('click', onUserFormModalClick);
   document.addEventListener('keydown', onModalEscKeydown);
 
   effectSliderBlock.classList.add('hidden');
@@ -56,12 +56,12 @@ function openLoadModal(){
   });
 }
 
-function closeLoadModal(){
+function onUserFormModalClick(){
   imageLoadModal.classList.add('hidden');
   userForm.reset();
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscKeydown);
-  closeLoadModalButton.removeEventListener('click', closeLoadModal);
+  closeLoadModalButton.removeEventListener('click', onUserFormModalClick);
   pristine.reset();
   // события на кнопки изменения размера
   minusSizeButton.removeEventListener('click', resizeLoadImage);
@@ -69,7 +69,7 @@ function closeLoadModal(){
 
 }
 
-function onPreviewImageLoadModal (evt) {
+function onPreviewImageChange (evt) {
   evt.preventDefault();
 
   const file = imageLoadButton.files[0];
@@ -145,7 +145,7 @@ userForm.addEventListener('submit', (evt) => {
       .then(
         () => {
           onSubmitSuccess();
-          closeLoadModal();
+          onUserFormModalClick();
         }
       )
       .catch(
@@ -159,4 +159,4 @@ userForm.addEventListener('submit', (evt) => {
   }
 });
 
-imageLoadButton.addEventListener('change', onPreviewImageLoadModal);
+imageLoadButton.addEventListener('change', onPreviewImageChange);

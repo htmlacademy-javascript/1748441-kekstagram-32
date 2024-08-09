@@ -22,7 +22,7 @@ const setPicturesData = (data) => {
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeFullPostModal();
+    onCancelFullPostModalClick();
   }
 };
 
@@ -30,16 +30,16 @@ function openFullPostModal(){
   document.body.classList.add('modal-open');
   fullPostModal.classList.remove('hidden');
   document.addEventListener('keydown', onModalEscKeydown);
-  closeModalPostModal.addEventListener('click', closeFullPostModal);
+  closeModalPostModal.addEventListener('click', onCancelFullPostModalClick);
 }
 
-function closeFullPostModal(){
+function onCancelFullPostModalClick(){
   document.body.classList.remove('modal-open');
   fullPostModal.classList.add('hidden');
   listComments.textContent = '';
   document.removeEventListener('keydown', onModalEscKeydown);
-  closeModalPostModal.removeEventListener('click', closeFullPostModal);
-  buttonMoreComments.removeEventListener('click', showMoreComments);
+  closeModalPostModal.removeEventListener('click', onCancelFullPostModalClick);
+  buttonMoreComments.removeEventListener('click', onButtonMoreCommentsClick);
 }
 
 const renderCommentsPost = (comments) => {
@@ -74,7 +74,7 @@ const renderFullPostInModal = (post) => {
   if(post.comments.length > SHOW_COMMENTS_COUNT) {
     // показываем кнопку "Загрузить еще комментарии"
     buttonMoreComments.classList.remove('hidden');
-    buttonMoreComments.addEventListener('click', showMoreComments);
+    buttonMoreComments.addEventListener('click', onButtonMoreCommentsClick);
   }else{
     buttonMoreComments.classList.add('hidden');
   }
@@ -97,7 +97,7 @@ listPost.addEventListener('click', (evt) => {
   }
 });
 
-function showMoreComments(){
+function onButtonMoreCommentsClick(){
   const list = listComments.querySelectorAll('.social__comment');
   let needAdd = 0;
 
