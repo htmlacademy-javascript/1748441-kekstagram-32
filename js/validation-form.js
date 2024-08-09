@@ -1,5 +1,6 @@
 import './form.js';
 
+const HASHTAG_REG = /^#[a-zа-яё0-9]{1,19}$/i;
 const userForm = document.querySelector('#upload-select-image');
 
 const pristine = new Pristine(userForm,{
@@ -15,11 +16,10 @@ function checkValidateHashtag(value){
     return true;
   }
 
-  const hashtagReg = /^#[a-zа-яё0-9]{1,19}$/i;
-  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
+  const arrayHashtags = value.trim().toLowerCase().split(' ').filter(Boolean);
 
-  for (let i = 0; i < array.length; i++) {
-    if (!hashtagReg.test(array[i])) {
+  for (let i = 0; i < arrayHashtags.length; i++) {
+    if (!HASHTAG_REG.test(arrayHashtags[i])) {
       return false;
     }
   }
@@ -30,16 +30,16 @@ function checkValidateHashtag(value){
 function checkCountHashtag(value){
   // максимум 5 хэштегов
   // нормализуем строку и преобразуем в массив по разделителю пробел
-  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
-  return array.length < 6;
+  const arrayHashtags = value.trim().toLowerCase().split(' ').filter(Boolean);
+  return arrayHashtags.length < 6;
 }
 
 function checkUniqueHashtag(value){
   // нормализуем строку и преобразуем в массив по разделителю пробел
-  const array = value.trim().toLowerCase().split(' ').filter(Boolean);
-  const set = new Set(array);
+  const arrayHashtags = value.trim().toLowerCase().split(' ').filter(Boolean);
+  const set = new Set(arrayHashtags);
 
-  return set.size === array.length;
+  return set.size === arrayHashtags.length;
 
 }
 

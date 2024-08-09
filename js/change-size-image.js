@@ -1,5 +1,8 @@
-const userForm = document.querySelector('#upload-select-image');
+const MIN_SIZE = 25;
+const MAX_SIZE = 100;
+const STEP_SIZE = 25; // шаг для изменения масштаба изображения
 
+const userForm = document.querySelector('#upload-select-image');
 const inputSizeImage = userForm.querySelector('.scale__control--value');
 const imageLoadPreview = userForm.querySelector('.img-upload__preview img');
 
@@ -14,12 +17,12 @@ function resizeLoadImage(element){
   let setSize;
 
   if (type === 'minus') {
-    if (cureSize > 25 && cureSize <= 100) {
-      setSize = cureSize - 25;
+    if (cureSize > MIN_SIZE && cureSize <= MAX_SIZE) {
+      setSize = cureSize - STEP_SIZE;
     }
   } else {
-    if (cureSize >= 0 && cureSize < 100) {
-      setSize = cureSize + 25;
+    if (cureSize >= 0 && cureSize < MAX_SIZE) {
+      setSize = cureSize + STEP_SIZE;
     }
   }
   if(setSize){

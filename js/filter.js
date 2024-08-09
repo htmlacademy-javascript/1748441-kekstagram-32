@@ -1,13 +1,13 @@
 const POST_COUNT = 10;
-const filter = {
+const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
 
 const filterElement = document.querySelector('.img-filters');
-let currentFilter = filter.DEFAULT;
-let post = [];
+let currentFilter = Filter.DEFAULT;
+let posts = [];
 
 const sortRandomly = () => Math.random() - 0.5;
 
@@ -16,12 +16,12 @@ const sortByComments = (postA, postB) =>
 
 const getFilteredPictures = () => {
   switch (currentFilter) {
-    case filter.RANDOM:
-      return [...post].sort(sortRandomly).slice(0, POST_COUNT);
-    case filter.DISCUSSED:
-      return [...post].sort(sortByComments);
+    case Filter.RANDOM:
+      return [...posts].sort(sortRandomly).slice(0, POST_COUNT);
+    case Filter.DISCUSSED:
+      return [...posts].sort(sortByComments);
     default:
-      return [...post];
+      return [...posts];
   }
 };
 
@@ -46,7 +46,7 @@ const setOnFilterClick = (callback) => {
 
 const initFilter = (loadedPictures, callback) => {
   filterElement.classList.remove('img-filters--inactive');
-  post = [...loadedPictures];
+  posts = [...loadedPictures];
   setOnFilterClick(callback);
 };
 
